@@ -28,11 +28,8 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
   throw new Error(`No available port found starting from ${startPort}`);
 }
 
-async function startServer() {
-  // Windows-safe default: run the Vite development server unless explicitly in production.
-  const isDevelopment = process.env.NODE_ENV !== "production";
+export function createApp() {
   const app = express();
-  const server = createServer(app);
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -46,6 +43,16 @@ async function startServer() {
       createContext,
     })
   );
+
+  return app;
+}
+
+async function startServer() {
+  // Windows-safe default: run the Vite development server unless explicitly in production.
+  const isDevelopment = process.env.NODE_ENV !== "production";
+  const app = createApp();
+  const server = createServer(app);
+
   // development mode uses Vite, production mode uses static files
   if (isDevelopment) {
     await setupVite(app, server);
@@ -65,4 +72,6 @@ async function startServer() {
   });
 }
 
-startServer().catch(console.error);
+if (!process.env.VERCEL) {
+  startServer().catch(console.error);
+}
