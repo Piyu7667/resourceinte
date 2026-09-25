@@ -1,0 +1,11 @@
+{
+  "task_kind": "markdown-to-pdf",
+  "output": "pdf",
+  "signals": ["technical-report", "judge-guide"],
+  "hard_constraints": ["PDF deliverable", "professional long-form explanation"],
+  "content_features": {
+    "code_blocks": 5,
+    "defined_terms": 18,
+    "portrait_images": 0
+  }
+}

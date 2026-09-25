@@ -1,0 +1,2 @@
+machine_id,machine_type,plant,available_hours,unit,utilization,department
+CNC-07,Machine,Plant A,90,hrs,25,Production

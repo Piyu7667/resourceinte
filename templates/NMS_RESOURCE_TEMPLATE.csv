@@ -1,0 +1,2 @@
+device_id,device_type,site,available_bandwidth,bandwidth_unit,utilization,owner
+SW-07,Network Device,Plant A,1000,Mbps,30,IT

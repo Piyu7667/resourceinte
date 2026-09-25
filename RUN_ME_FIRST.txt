@@ -1,0 +1,9 @@
+RE:SOURCE - WINDOWS
+
+1. Install Node.js LTS.
+2. Extract this ZIP completely.
+3. Double-click START_RESOURCE.bat.
+4. Wait for the browser to open at http://127.0.0.1:3000/
+5. Keep the black server window open while using RE:SOURCE.
+
+This package preserves the original RE:SOURCE interface and pages. Only the Windows launcher/development startup was changed.

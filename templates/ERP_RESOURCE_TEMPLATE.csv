@@ -1,0 +1,2 @@
+asset_name,asset_type,plant,capacity,unit,utilization,owner
+CNC-07,Machine,Plant A,120,hrs,25,Production
