@@ -66,6 +66,17 @@ const trpcClient = trpc.createClient({
         return globalThis.fetch(input, {
           ...(init ?? {}),
           credentials: "include",
+        }).then(async response => {
+          const contentType = response.headers.get("content-type") || "";
+          if (!contentType.includes("application/json")) {
+            const body = await response.text();
+            throw new Error(
+              response.status === 404
+                ? "Login API is not available on this deployment. Redeploy the latest Vercel version."
+                : `Login API returned an unexpected response (${response.status}): ${body.slice(0, 80)}`
+            );
+          }
+          return response;
         });
       },
     }),
