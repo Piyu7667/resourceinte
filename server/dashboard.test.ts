@@ -19,6 +19,13 @@ describe("dashboard intelligence procedures", () => {
     expect(result.user.role).toBe("admin");
   });
 
+  it("accepts demo credentials with accidental spaces or username casing", async () => {
+    const caller = appRouter.createCaller(createPublicContext());
+    const result = await caller.auth.demoLogin({ username: " JUDGE ", password: " resource123 " });
+
+    expect(result.success).toBe(true);
+  });
+
   it("rejects incorrect username or password with a clear error", async () => {
     const caller = appRouter.createCaller(createPublicContext());
 

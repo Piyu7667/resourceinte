@@ -105,9 +105,12 @@ function Report({ data }: { data: OverviewData }) {
 
 function LoginPage({ onSuccess }: { onSuccess: (user: { name: string; email: string }) => void }) {
   const login = trpc.auth.demoLogin.useMutation({ onSuccess: result => onSuccess(result.user) });
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const submit = (event: React.FormEvent) => { event.preventDefault(); login.mutate({ username, password }); };
+  const [username, setUsername] = useState("judge");
+  const [password, setPassword] = useState("resource123");
+  const submit = (event: React.FormEvent) => {
+    event.preventDefault();
+    login.mutate({ username: username.trim(), password: password.trim() });
+  };
   return <div className="login-page"><div className="login-orbit orbit-one" /><div className="login-orbit orbit-two" /><div className="login-card"><div className="login-brand"><div className="brand-mark"><DatabaseIcon /></div><div><div className="brand-name">RE<span>:</span>SOURCE</div><div className="brand-tag">INTELLIGENCE LAYER</div></div></div><div className="login-heading"><div className="eyebrow"><LockKeyhole size={12} /> Secure workspace</div><h1>Turn resources<br /><em>into intelligence.</em></h1><p>Sign in to access your organization’s capacity, demand, and decision center.</p></div><form onSubmit={submit} className="login-form"><label className="field"><span>Username</span><input required autoComplete="username" value={username} onChange={event => setUsername(event.target.value)} placeholder="Enter username" /></label><label className="field"><span>Password</span><input required type="password" autoComplete="current-password" value={password} onChange={event => setPassword(event.target.value)} placeholder="Enter password" /></label>{login.error && <div className="login-error"><span>!</span><div><strong>Login failed</strong><small>{login.error.message}</small></div></div>}<button className="primary-button login-submit" disabled={login.isPending}>{login.isPending ? "Checking credentials..." : "Sign in to workspace"}<ArrowUpRight size={14} /></button></form><div className="demo-credentials"><div><strong>SIH demo access</strong><span>Use the credentials below for your presentation.</span></div><div className="credential-row"><code>judge</code><span>username</span><code>resource123</code><span>password</span></div></div><div className="login-footer"><ShieldCheck size={13} /> Prototype authentication · production-ready RBAC roadmap</div></div></div>;
 }
 

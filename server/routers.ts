@@ -113,7 +113,7 @@ export const appRouter = router({
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     demoLogin: publicProcedure.input(z.object({ username: z.string().min(1), password: z.string().min(1) })).mutation(({ input }) => {
-      if (input.username !== "judge" || input.password !== "resource123") {
+      if (input.username.trim().toLowerCase() !== "judge" || input.password.trim() !== "resource123") {
         throw new TRPCError({ code: "UNAUTHORIZED", message: "Incorrect username or password. Try the demo credentials shown below." });
       }
       return { success: true as const, user: { name: "SIH Judge", email: "judge@resource.demo", role: "admin" as const } };
